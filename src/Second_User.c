@@ -28,7 +28,7 @@
 #define SEND_PORT	 6666 
 #define RECV_PORT	 7777 
 #define BUFFER_MAX_LEN 1024 
-#define DELIM "." 
+#define DELIM "." //Delimeter to be separated for validating IPv4 address
 
 char buffer[BUFFER_MAX_LEN], FirstUserIP[]="000.000.000.000",SecondUserIP[]="000.000.000.000";
 pthread_mutex_t atomicLock;
@@ -77,12 +77,9 @@ int checkValidIP(char *chr)
 		}
 		num = atoi(ptr); 
 
-		/* check for valid IP */
 		if (num >= 0 && num <= 255) { 
-			/* parse remaining string */
 			ptr = strtok(NULL, DELIM); 
-			if (ptr != NULL) 
-				++dots; 
+			if (ptr != NULL) ++dots; 
 		} else
 			return 0; 
 	} 
@@ -139,24 +136,29 @@ void recv_message(){
 	return; 
 }
 
-	
+
 // Main Func to get user input and send it to the other system
 int main() { 
 
 	char checkIP[]="000.000.000.000";
-	printf("\nEnter Your IP address(source/host) for binding: ");
-	fgets(SecondUserIP,sizeof(SecondUserIP),stdin);
+	//get source/host IPv4 address
+	while(1) {
+		printf("\nEnter Your IP address(source/host) for binding: ");
+		fgets(SecondUserIP,sizeof(SecondUserIP),stdin);
 	
-	memcpy(checkIP,SecondUserIP,16);
-	if(!checkValidIP(checkIP)) return 0;
+		memcpy(checkIP,SecondUserIP,16);
+		if(checkValidIP(checkIP)) break;
+	}
+	//get destination/guest IPv4 address
+	while(1){
+		printf("\nEnter Remote IP address(destination/guest) for binding: ");
+		fgets(FirstUserIP,sizeof(FirstUserIP),stdin);
 
-	printf("\nEnter Remote IP address(destrination/guest) for binding: ");
-	fgets(FirstUserIP,sizeof(FirstUserIP),stdin);
-
-	memcpy(checkIP,FirstUserIP,16);
-	if(!checkValidIP(checkIP)) return 0;
+		memcpy(checkIP,FirstUserIP,16);
+		if(checkValidIP(checkIP)) break;
 	
-	//do it now, so that will receive message while processing for sending (usually slow as it involves user input)
+	}
+	//do it now, so that will receive message while processing for sending
 	pthread_t recv_thread;
 	
 	if (pthread_create(&recv_thread, NULL, recv_message, NULL)) {
