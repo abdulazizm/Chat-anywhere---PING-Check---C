@@ -3,13 +3,13 @@ Author: Abdul Aziz
 Mail ID: abdulaziz.m.eie@gmail.com
 Country: India
 
-Directory structure:
+### Directory structure:
 - src ____ First_User.c
 	- |__ Second_User.c
 - release ____ first.exe
 	- __ second.exe
 		 
-###Hints:<br />
+### Hints:<br />
 ---Run first.exe in one cmd terminal and run second.exe in other PC/Terminal------<br /> 
 1. recv_message func runs in separate thread that prints the received message if any
 2. main parent thread will be waiting for user input
@@ -22,13 +22,16 @@ Directory structure:
 9. also works with inputs with spaces
 10. when user provides more input than BUFFER_MAX_LEN (1024 char) -> fgets helps to strip the overflowed data
 
-Updates:
+### Demo:
+https://github.com/abdulazizm/udp_chat_between_two_devices_over_network/blob/master/Demo_Video.mp4
+
+### Updates:
 Check User Provided Input for IPv4 address format
 
-Video Demonstrated with IPs: 
-192.168.1.5 - First
-192.168.1.10 - Second
+### Video Demonstrated with IPs: 
+- 192.168.1.5 - First
+- 192.168.1.10 - Second
 
-netstat -a -b used to get ports binded by the executables.
+### netstat -a -b used to get ports binded by the executables.
 
-Kindly recompile source code if you want to try (recommended). Not sure about executables will work as it depends on cygwin environment.
+## Kindly recompile source code if you want to try (recommended). Not sure about executables will work as it depends on cygwin environment.
