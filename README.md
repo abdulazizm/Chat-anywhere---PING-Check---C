@@ -24,6 +24,7 @@ Country: India
 
 ### Demo:
 https://github.com/abdulazizm/udp_chat_between_two_devices_over_network/blob/master/Demo_Video.mp4
+Demo video involves validation of user entered IP address and how to connect between two applications
 
 ### Updates:
 Check User Provided Input for IPv4 address format
